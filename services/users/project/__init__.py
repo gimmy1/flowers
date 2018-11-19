@@ -1,18 +1,34 @@
-# services/users/project/__init__.py
+# # services/users/project/__init__.py
+# import os
+# from flask import Flask, jsonify
+# from flask_sqlalchemy import SQLAlchemy
+
+# # instantiate the app
+# app = Flask(__name__)
+
+# # Pull in the config 
+# # Retrieve the environment variable with os.getenv // returns None if one does not exist
+# app_settings = os.getenv('APP_SETTINGS')
+# app.config.from_object(app_settings)
+
+# # instantiate the db
+# db = SQLAlchemy(app)
+
+
 import os
 from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy  # new
+
 
 # instantiate the app
 app = Flask(__name__)
 
-# Pull in the config 
-# Retrieve the environment variable with os.getenv // returns None if one does not exist
+# set config
 app_settings = os.getenv('APP_SETTINGS')
-app.config.from_object('project.config.DevelopmentConfig')
+app.config.from_object(app_settings)
 
 # instantiate the db
-db = SQLAlchemy(app)
+db = SQLAlchemy(app)  # new
 
 # model
 class User(db.Model):
