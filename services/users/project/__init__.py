@@ -16,35 +16,31 @@
 
 
 import os
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy  # new
 
-
-# instantiate the app
-app = Flask(__name__)
-
-# set config
-app_settings = os.getenv('APP_SETTINGS')
-app.config.from_object(app_settings)
-
 # instantiate the db
-db = SQLAlchemy(app)  # new
+db = SQLAlchemy()  # new
 
-# model
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(128), nullable=False)
-    email = db.Column(db.String(128), nullable=False)
-    active = db.Column(db.Boolean(), default=True, nullable=False)
+def create_app():
+    # instantiate the app
+    app = Flask(__name__)
 
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
-        
-@app.route('/flowers/flower', methods=['GET'])
-def flower():
-    return jsonify({
-        "flower": "soon"
-    })
+    # set config
+    app_settings = os.getenv('APP_SETTINGS')
+    app.config.from_object(app_settings)
 
+    # set up extensions
+    db.init_app(app)
+
+    # register blueprints
+    from project.api.users import flowers_blueprint
+    app.register_blueprint(flowers_blueprint)
+
+    # shell context for cli
+    # used to register app and db to the shell
+    @app.shell_context_processor
+    def ctx():
+        return {'app': app, 'db': db}
+    
+    return app
