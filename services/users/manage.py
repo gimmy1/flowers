@@ -56,6 +56,13 @@ def cov():
         return 0
     return 1
 
+@cli.command()
+def seed_db():
+    """Seeds the database."""
+    db.session.add(User(username='gamal', email="gamal@gamal.com"))
+    db.session.add(User(username='gimmy', email="gimmy@mgimmy.com"))
+    db.session.commit()
+
 
 if __name__ == '__main__':
     cli()
