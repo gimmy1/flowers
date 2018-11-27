@@ -17,10 +17,14 @@
 
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy  # new
+from flask_sqlalchemy import SQLAlchemy
+from flask_debugtoolbar import DebugToolbarExtension
 
 # instantiate the db
-db = SQLAlchemy()  # new
+db = SQLAlchemy()
+toolbar = DebugToolbarExtension() 
+
+
 
 def create_app():
     # instantiate the app
@@ -32,6 +36,8 @@ def create_app():
 
     # set up extensions
     db.init_app(app)
+    toolbar.init_app(app)
+    
 
     # register blueprints
     from project.api.users import flowers_blueprint
