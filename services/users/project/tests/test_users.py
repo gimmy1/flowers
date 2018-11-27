@@ -93,7 +93,7 @@ class TestUserService(BaseTestCase):
     def test_get_single_user(self):
         """ Ensure single user behaves correctly """
         user = add_user('gamal', 'gamal@gamal.com')
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         with self.client:
             response = self.client.get(f'/flowers/{user.id}')
             data = json.loads(response.data.decode())
