@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import UsersList from './components/UsersList';
 
 class App extends Component {
     // use of class based component for statfulness
     constructor() {
         super();
-        this.getUsers();
+        this.state = {
+            users: []
+        };
     }
 
+    // lifecycle methods
+    componentDidMount() {
+        this.getUsers()
+    }
     getUsers() {
         axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/flowers`)
-        .then((res) => {console.log(res) })
+        .then((res) => { this.setState({ users: res.data.data.users }); })
         .catch((err) => {console.log(err) }) 
     }
 
@@ -24,6 +31,7 @@ class App extends Component {
                         <br/>
                         <h1 className="title is-1 is-1">All Users</h1>
                         <hr/><br/>
+                        <UsersList users={this.state.users}/>
                         </div>
                     </div>
                 </div>
