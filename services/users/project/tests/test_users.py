@@ -27,7 +27,8 @@ class TestUserService(BaseTestCase):
                 '/flowers',
                 data = json.dumps({
                     'username': 'gamal',
-                    'email': 'gamal@gamal.com'
+                    'email': 'gamal@gamal.com',
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json'
             )
@@ -54,7 +55,8 @@ class TestUserService(BaseTestCase):
             response = self.client.post(
                 '/flowers',
                 data=json.dumps({
-                    'email': 'gamal@gamal.com'
+                    'email': 'gamal@gamal.com',
+                    # 'password': 'hello' # must be non-empty - Weird
                 }),
                 content_type='application/json'
             )
@@ -68,7 +70,8 @@ class TestUserService(BaseTestCase):
                 '/flowers',
                 data = json.dumps({
                     'username': 'gamal',
-                    'email': 'gamal@gamal.com'
+                    'email': 'gamal@gamal.com', 
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json'
             )
@@ -76,7 +79,8 @@ class TestUserService(BaseTestCase):
                 '/flowers',
                 data = json.dumps({
                     'username': 'gamal',
-                    'email': 'gamal@gamal.com'
+                    'email': 'gamal@gamal.com',
+                    'password': 'greaterthaneight'
                 }),
                 content_type='application/json'
             )
@@ -88,7 +92,7 @@ class TestUserService(BaseTestCase):
     """ Test Single User Functionality """
     def test_get_single_user(self):
         """ Ensure single user behaves correctly """
-        user = add_user('gamal', 'gamal@gamal.com')
+        user = add_user('gamal', 'gamal@gamal.com', 'greaterthaneight')
         # import pdb; pdb.set_trace()
         with self.client:
             response = self.client.get(f'/flowers/{user.id}')
@@ -112,8 +116,8 @@ class TestUserService(BaseTestCase):
 
     """ Test Get All Users Functionality """
     def test_all_users(self):
-        user1 = add_user('laurie', 'laurie@laurie.com')
-        user2 = add_user('gamal', 'gamal@gamal.com')
+        user1 = add_user('laurie', 'laurie@laurie.com', 'greaterthaneight')
+        user2 = add_user('gamal', 'gamal@gamal.com', 'greaterthaneight')
 
         with self.client:
             response = self.client.get('/flowers')
