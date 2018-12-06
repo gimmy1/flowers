@@ -17,7 +17,7 @@ class TestAuthBlueprint(BaseTestCase):
                 }), 
                 content_type = 'application/json'
             )
-            import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
             data = json.loads(response.data.decode())
             self.assertTrue(data['message'] == 'success')
             self.assertTrue(data['auth_token'])

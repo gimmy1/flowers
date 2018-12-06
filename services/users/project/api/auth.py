@@ -35,7 +35,7 @@ def register_user():
             
             # generate auth token
             auth_token = new_user.encode_auth_token(new_user.id)
-            import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
             response_object['status'] = 'great'
             response_object['message'] = 'success'
             response_object['auth_token'] = auth_token.decode()
