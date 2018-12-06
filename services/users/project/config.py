@@ -27,4 +27,5 @@ class TestingConfig(BaseConfig):
     TOKEN_EXPIRATION_SECONDS = 3
 
 class ProductionConfig(BaseConfig):
+    DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
