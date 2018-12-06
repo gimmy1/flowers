@@ -30,9 +30,6 @@ migrate = Migrate()
 bcrypt = Bcrypt()
 
 
-
-
-
 def create_app():
     # instantiate the app
     app = Flask(__name__)
@@ -53,6 +50,8 @@ def create_app():
     # register blueprints
     from project.api.users import flowers_blueprint
     app.register_blueprint(flowers_blueprint)
+    from project.api.auth import auth_blueprint
+    app.register_blueprint(auth_blueprint)
 
     # shell context for cli
     # used to register app and db to the shell
