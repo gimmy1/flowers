@@ -234,7 +234,7 @@ class TestAuthBlueprint(BaseTestCase):
                 headers = {'Authorization': f'Bearer invalid'}
             )
             data = json.loads(response.data.decode())
-            import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
             self.assertTrue(data['status'] == 'fail')
             self.assertTrue(data['message'] == 'Invalid token. Please try again.')
             self.assertEqual(response.status_code, 401)
