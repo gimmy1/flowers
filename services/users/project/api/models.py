@@ -58,6 +58,6 @@ class User(db.Model):
             return payload['sub']
         except jwt.ExpiredSignatureError:
             return 'Signature expired. Please log in again'
-        except jwt.InvalidError:
+        except jwt.InvalidTokenError:
             return 'Invalid token. Please try again.'
 
