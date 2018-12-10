@@ -28,12 +28,14 @@ def get_all_users():
 
 @flowers_blueprint.route('/flowers', methods=['POST', 'GET'])
 def flower_user():
+    print("hello")
     post_data = request.get_json()
     response_object = {
         'message': 'Invalid payload'
     }
 
     # check for post_data
+    # import pdb; pdb.set_trace()
     if not post_data:
         return jsonify(response_object), 400
     
