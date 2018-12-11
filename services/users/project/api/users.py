@@ -55,6 +55,7 @@ def flower_user():
             return jsonify(response_object), 400
     except (exc.IntegrityError, ValueError) as e:
         db.session.rollback()
+        response_object['ValueError'] = 'ValueError'
         return jsonify(response_object), 400
     
 
