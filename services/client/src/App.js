@@ -25,6 +25,8 @@ class App extends Component {
         };
         this.addUser = this.addUser.bind(this); // bound the context of this; 
         this.handleChange = this.handleChange.bind(this); // bound the context of this; 
+        this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
     }
 
     // lifecycle methods
@@ -57,10 +59,22 @@ class App extends Component {
 
     handleChange(event) {
         // update the state in parent component so it updates when user enters text
+
         const obj = {}
         obj[event.target.name] = event.target.value;
         this.setState(obj);
     }
+
+    handleUserFormSubmit(event) {
+        event.preventDefault();
+        console.log('sanity check');
+    }
+
+    handleFormChange(event) {
+        const obj = this.state.formData;
+        obj[event.target.name] = event.target.value;
+        this.setState(obj);
+    };
 
     render() {
         return (
@@ -86,17 +100,20 @@ class App extends Component {
                                             <UsersList users={this.state.users}/>
                                         </div>
                                     )} />
-                                    <Route exact path='/about' component={About}/>
-                                    <Route exact path='/Register' render={() => (
+                                    <Route exact path='/about' component={About}/>                
                                         <Form
                                             formType={'Register'}
                                             formData={this.state.formData}
+                                            handleUserFormSubmit={this.handleUserFormSubmit}
+                                            handleFormChange={this.handleFormChange}
                                         />
-                                    )} />
+                                    )}/>
                                     <Route exact path='/Login' render={() => (
                                         <Form
                                             formType={'Login'}
                                             formData={this.state.formData}
+                                            handleUserFormSubmit={this.handleUserFormSubmit}
+                                            handleFormChange={this.handleFormChange}
                                         />
                                     )}/>
                                 </Switch>

@@ -5,7 +5,7 @@ const NavBar = (props) => (
     // eslint disable next line
     <nav className='navbar is-dark' role='navigation' aria-label='main navigation'>
         <section className='container'>
-            <div clasName='navbar-brand'>
+            <div className='navbar-brand'>
                 <strong>{props.title}</strong>
                 <span 
                     className='nav-toggle navbar-burger'

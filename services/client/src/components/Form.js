@@ -6,49 +6,49 @@ const Form = (props) => {
             <h1 className='title is-1'>{props.formType}</h1>
             <hr/><br/>
             <form onSubmit={(event) => props.handleUserFormSubmit(event)}>
-                {props.formType === 'Register' && 
-                    <div className='field'>
+                {props.formType === 'Register' &&
+                    <div className="field">
                         <input
-                            name='username'
-                            className='input is-medium'
-                            type='text'
-                            placeholder='Enter a username' 
-                            required
-                            value={props.formData.username}
-                            onChange={props.handleFormChange}
+                        name="username"
+                        className="input is-medium"
+                        type="text"
+                        placeholder="Enter a username"
+                        
+                        value={props.formData.username}
+                        onChange={props.handleFormChange}
                         />
                     </div>
                 }
-                <div className='field'>
+                <div className="field">
                     <input
-                        name='email'
-                        className='input is-medium'
-                        type='text'
-                        placeholder='Enter an email' 
-                        required
+                        name="email"
+                        className="input is-medium"
+                        type="email"
+                        placeholder="Enter an email address"
+                        
                         value={props.formData.email}
                         onChange={props.handleFormChange}
                     />
                 </div>
-                <div className='field'>
+                <div className="field">
                     <input
-                        name='password'
-                        className='input is-medium'
-                        type='text'
-                        placeholder='Enter an password' 
-                        required
+                        name="password"
+                        className="input is-medium"
+                        type="password"
+                        placeholder="Enter a password"
+                        
                         value={props.formData.password}
                         onChange={props.handleFormChange}
                     />
                 </div>
                 <input
-                    type='submit'
-                    className='button is-primary is-medium is-fullwidth'
-                    value='Submit'
+                    type="submit"
+                    className="button is-primary is-medium is-fullwidth"
+                    value="Submit"
                 />
             </form>
-        </div>
-    )
+            </div>
+            )
 }
 
 export default Form;
