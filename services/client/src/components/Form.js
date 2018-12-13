@@ -1,6 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom'
 
 const Form = (props) => {
+    if (props.isAuthenticated) {
+        return <Redirect to='/' />
+    }
     return (
         <div>
             <h1 className='title is-1'>{props.formType}</h1>
@@ -9,13 +13,13 @@ const Form = (props) => {
                 {props.formType === 'Register' &&
                     <div className="field">
                         <input
-                        name="username"
-                        className="input is-medium"
-                        type="text"
-                        placeholder="Enter a username"
-                        
-                        value={props.formData.username}
-                        onChange={props.handleFormChange}
+                            name="username"
+                            className="input is-medium"
+                            type="text"
+                            placeholder="Enter a username"
+                            required
+                            value={props.formData.username}
+                            onChange={props.handleFormChange}
                         />
                     </div>
                 }
@@ -25,7 +29,7 @@ const Form = (props) => {
                         className="input is-medium"
                         type="email"
                         placeholder="Enter an email address"
-                        
+                        required
                         value={props.formData.email}
                         onChange={props.handleFormChange}
                     />
@@ -36,7 +40,7 @@ const Form = (props) => {
                         className="input is-medium"
                         type="password"
                         placeholder="Enter a password"
-                        
+                        required
                         value={props.formData.password}
                         onChange={props.handleFormChange}
                     />
