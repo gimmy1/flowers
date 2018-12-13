@@ -23,12 +23,20 @@ const NavBar = (props) => (
                 <div className='navbar-start'>
                     <Link to='/' className='navbar-item'>Home</Link>
                     <Link to='/about' className='navbar-item'>About</Link>
-                    <Link to='/status' className='navbar-item'>User Status</Link>
+                    {props.isAuthenticated && 
+                        <Link to='/status' className='navbar-item'>User Status</Link>
+                    }
                 </div>
                 <div className='navbar-end'>
-                    <Link to='/register' className='navbar-item'>Register</Link>
-                    <Link to='/login' className='navbar-item'>Login</Link>
-                    <Link to='/logout' className='navbar-item'>Logout</Link>
+                    {!props.isAuthenticated && 
+                        <Link to='/register' className='navbar-item'>Register</Link>
+                    }
+                    {!props.isAuthenticated && 
+                        <Link to='/login' className='navbar-item'>Login</Link>
+                    }
+                    {props.isAuthenticated && 
+                        <Link to='/logout' className='navbar-item'>Logout</Link>
+                    }
                 </div>
             </div>
         </section>

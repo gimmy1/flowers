@@ -8,6 +8,7 @@ import About from './components/About';
 import NavBar from './components/NavBar';
 import Form from './components/Form';
 import Logout from './components/Logout';
+import UserStatus from './components/UserStatus';
 
 class App extends Component {
     // use of class based component for statfulness
@@ -115,7 +116,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <NavBar title={this.state.title}/>
+                <NavBar 
+                    title={this.state.title}
+                    isAuthenticated={this.state.isAuthenticated}
+                    />
                 <section className="section">
                     <div className="container">
                         <div className="columns">
@@ -136,7 +140,12 @@ class App extends Component {
                                             <UsersList users={this.state.users}/>
                                         </div>
                                     )} />
-                                    <Route exact path='/about' component={About}/>                
+                                    <Route exact path='/about' component={About}/>
+                                    <Route exact path='/status' render={()=> (
+                                        <UserStatus
+                                            isAuthenticated={this.state.isAuthenticated}
+                                        />  
+                                    )}/>
                                     <Route exact path='/login' render={() => (
                                         <Form
                                             formType={'Login'}
