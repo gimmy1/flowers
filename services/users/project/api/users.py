@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from project.api.models import User
+from project.api.utils import authenticate, is_admin
 
 from project import db # import SQLAlchemy
 
@@ -27,13 +28,17 @@ def get_all_users():
     return jsonify(response_object), 200
 
 @flowers_blueprint.route('/flowers', methods=['POST', 'GET'])
-def flower_user():
+@authenticate
+def flower_user(resp):
     print("hello")
     post_data = request.get_json()
     response_object = {
         'message': 'Invalid payload'
     }
 
+    if not is_admin(resp):
+        response_object['message'] = 'You do not have permission to do that.'
+        return jsonify(response_object), 401
     # check for post_data
     # import pdb; pdb.set_trace()
     if not post_data:
@@ -80,6 +85,7 @@ def get_single_user(user_id):
             return jsonify(response_object), 200
     except ValueError as ve:
         return jsonify(response_object), 404
+    
     
 
 
