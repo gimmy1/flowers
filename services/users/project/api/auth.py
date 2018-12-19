@@ -28,8 +28,8 @@ def register_user():
             # add new user to db
             new_user = User(
                 username=username,
-                email = email, 
-                password = password
+                email = email,
+                password = password,
             )
             db.session.add(new_user)
             db.session.commit()
