@@ -7,8 +7,9 @@ services:
       context: ./services/users
       dockerfile: Dockerfile-prod
     expose:
-      - '5000'
+      - 5000
     environment:
+      - FLASK_ENV=production
       - APP_SETTINGS=project.config.ProductionConfig
       - DATABASE_URL=postgres://postgres:postgres@users-db:5432/users_prod
       - DATABASE_TEST_URL=postgres://postgres:postgres@users-db:5432/users_test
@@ -25,18 +26,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    
-  nginx:
-    build:
-      context: ./services/nginx
-      dockerfile: Dockerfile-prod
-    restart: always
-    ports:
-      - 80:80
-    depends_on:
-      - users
-      - client
-    
+
   client:
     container_name: client
     build:
@@ -49,3 +39,14 @@ services:
       - '3007:80'
     depends_on:
       - users
+
+  nginx:
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile-prod
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - users
+      - client  # new

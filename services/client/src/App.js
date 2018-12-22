@@ -92,6 +92,7 @@ class App extends Component {
             this.clearFormState();
             window.localStorage.setItem('authToken', res.data.auth_token);
             this.setState({isAuthenticated: true, })
+            console.log(this.state);
             this.getUsers();
             // console.log(res.data);
         })
