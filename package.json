@@ -1,0 +1,6 @@
+{
+    "name": "flowers",
+    "devDependencies": {
+        "cypress": "^3.1.4"
+    }
+}

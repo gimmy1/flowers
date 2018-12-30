@@ -1,11 +1,11 @@
 #!/bin/bash
 
-fails = ''
+fails=""
 
 inspect() {
-    if [ $1 -ne 0]; then
-        fails="${fails} $2"
-    fi
+  if [ $1 -ne 0 ]; then
+    fails="${fails} $2"
+  fi
 }
 
 # run unit and integration tests
@@ -16,6 +16,15 @@ docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
 inspect $? client
 docker-compose -f docker-compose-dev.yml down 
 
+# run e2e tests
+docker-compose -f docker-compose-prod.yml up -d --build
+docker-compose -f docker-compose-prod.yml run users python manage.py recreate-db
+./node_modules/.bin/cypress run --config baseUrl=http://localhost
+inspect $? e2e 
+docker-compse -f docker-compose-prod.yml down
+
+
+
 # return proper code 
 if [-n "${fails}"]; then
     echo "Tests failed: ${fails}"
@@ -24,3 +33,4 @@ else
     echo "Tests passed"
     exit 0
 fi
+
