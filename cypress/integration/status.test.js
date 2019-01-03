@@ -8,7 +8,7 @@ describe('Status', () => {
         cy
             .visit('/status')
             .get('p').contains('You must be logged in to view this')
-            .get('a').contans('Use Status').should('not.be.visible')
+            .get('a').contains('Use Status').should('not.be.visible')
             .get('a').contains('Register')
             .get('a').contains('Log In')
     });

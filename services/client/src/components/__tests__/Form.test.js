@@ -12,6 +12,8 @@ const testData = [
             email: '',
             password: ''
         },
+        // isAuthenticated: false,
+        // loginUser: jest.fn()
     },
     {
         formType: 'Login',
@@ -19,6 +21,8 @@ const testData = [
             email: '',
             password: ''
         },
+        // isAuthenticated: false,
+        // loginUser: jest.fn()
     }
 ]
 

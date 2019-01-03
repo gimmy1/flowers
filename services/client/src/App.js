@@ -16,31 +16,24 @@ class App extends Component {
         super();
         this.state = {
             users: [],
-            username:'',
-            email:'',
-            active: '',
-            admin: '',
             title: 'Flower App',
-            formData: {
-                username: '',
-                email: '',
-                password: '',
-                active: '',
-                admin: ''
-            },
             isAuthenticated: false
         };
-        this.addUser = this.addUser.bind(this); // bound the context of this; 
-        this.handleChange = this.handleChange.bind(this); // bound the context of this; 
-        this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
-        this.handleFormChange = this.handleFormChange.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
+        this.loginUser = this.loginUser.bind(this);
     }
-
+    
     // lifecycle methods
+    componentWillMount() {
+        if (window.localStorage.getItem('authToken')) {
+            this.setState({ isAuthenticated: false});
+        };
+    };
+
     componentDidMount() {
         this.getUsers()
-    }
+    };
+
     getUsers() {
         axios.get(`${process.env.REACT_APP_USERS_SERVICE_URL}/flowers`)
         .then((res) => {
@@ -48,7 +41,7 @@ class App extends Component {
 
         })
         .catch((err) => {console.log(err) }) 
-    }
+    };
 
     addUser(event) {
         event.preventDefault();
@@ -61,63 +54,21 @@ class App extends Component {
         axios.post(`${process.env.REACT_APP_USERS_SERVICE_URL}/flowers`, data)
         .then((res) => {
             this.getUsers();
-            this.setState({username: '', email: ''})
+            this.setState({ username: '', email: '' })
         })
         .catch((err) => { console.log(err); });
-      };
-
-    handleChange(event) {
-        // update the state in parent component so it updates when user enters text
-
-        const obj = {}
-        obj[event.target.name] = event.target.value;
-        this.setState(obj);
-    }
-
-    handleUserFormSubmit(event) {
-        event.preventDefault();
-        // console.log('sanity check');
-        const formType = window.location.href.split('/').reverse()[0]
-        // console.log(formType)
-        let data = {
-            email: this.state.formData.email,
-            password: this.state.formData.password
-        };
-        if (formType === 'register') {
-            data.username = this.state.formData.username
-        }
-        const url = `${process.env.REACT_APP_USERS_SERVICE_URL}/auth/${formType}`
-        axios.post(url, data)
-        .then((res) => {
-            this.clearFormState();
-            window.localStorage.setItem('authToken', res.data.auth_token);
-            this.setState({isAuthenticated: true, })
-            console.log(this.state);
-            this.getUsers();
-            // console.log(res.data);
-        })
-        .catch((err) => {console.log(err);})
-    }
-
-    handleFormChange(event) {
-        const obj = this.state.formData;
-        obj[event.target.name] = event.target.value;
-        this.setState(obj);
-        // console.log(this.state.formData);
     };
 
-    clearFormState() {
-        this.setState({
-            formData: {username: '', email: '', password: ''},
-            username: '', 
-            email: ''
-        })
-    }
+    loginUser(token) {
+        window.localStorage.setItem('authToken', token);
+        this.setState({isAuthenticated: true});
+        this.getUsers();
+    };
 
     logoutUser() {
         window.localStorage.clear()
         this.setState({isAuthenticated: false})
-    }
+    };
 
     render() {
         return (
@@ -149,19 +100,15 @@ class App extends Component {
                                     <Route exact path='/login' render={() => (
                                         <Form
                                             formType={'Login'}
-                                            formData={this.state.formData}
-                                            handleUserFormSubmit={this.handleUserFormSubmit}
-                                            handleFormChange={this.handleFormChange}
                                             isAuthenticated={this.state.isAuthenticated}
+                                            loginUser={this.loginUser}
                                         />
                                     )}/>
                                     <Route exact path='/register' render={() => (
                                         <Form
                                             formType={'Register'}
-                                            formData={this.state.formData}
-                                            handleUserFormSubmit={this.handleUserFormSubmit}
-                                            handleFormChange={this.handleFormChange}
                                             isAuthenticated={this.state.isAuthenticated}
+                                            loginUser={this.loginUser}
                                         />
                                     )}/>
                                     <Route exact path='/logout' render={() => (
