@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import { registerFormRules, loginFormRules } from './form-rules.js'
-import { FormErrors } from './FormErrors.js'
+import FormErrors  from './FormErrors.js'
 
 
 class Form extends Component {
@@ -21,6 +21,7 @@ class Form extends Component {
         }
         this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
+        this.createMessage = this.createMessage.bind(this);
     };
 
     componentDidMount() {
@@ -72,16 +73,14 @@ class Form extends Component {
             if (self.allTrue()) self.setState({ valid: true });
         }
     }
-
     validateEmail(email) {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-
     allTrue() {
         let formRules = loginFormRules;
         if (this.props.formTypes === 'Register') {
-            formRules === registerFormRules;       
+            formRules = registerFormRules;       
         }
         for (const rule in formRules) {
             if (!rule.valid) return false;
@@ -124,7 +123,15 @@ class Form extends Component {
             this.clearForm();
             this.props.loginUser(res.data.auth_token);
         })
-        .catch((err) => { console.log(err); })
+        .catch((err) => {
+            // login formType
+            if (formType === 'Login') {
+                this.props.createMessage('Login failed.', 'danger')
+            }
+            if (formType === 'Register') {
+                this.props.createMessage('That user already exists.', 'danger')
+            }
+        })
     }
 
     render() {

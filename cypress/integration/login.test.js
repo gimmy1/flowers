@@ -52,9 +52,61 @@ describe('Login', () => {
         
         // assert log out is displayed properly
         cy.get('p').contains('You are now logged out.')
+        cy.get('.navbar-burger').click();
+        cy.contains('All Users');
+        cy
+            .get('table')
+            .find('tbody > tr').last()
+            .find('td').contains(username)
+        cy.get('.notification.is-success').contains('Welcome!')
+
+
         cy
             .get('.navbar-item').contains('User Status').should('not.be.visible')
             // .get('.navbar-item').contains('Log In')
-    })
+    });
+    it('shold throw an error if credentials are incorrect', () => {
+        cy
+            .visit('/login')
+            .get('input[name="email"]').type('incorrect@email.com')
+            .get('input[name="password"]').type(password)
+            .get('input[type="submit"]').click()
+        
+        // assert user login failed
+        cy.contains('All Users').should('not.be.visible')
+        cy.contains('Login')
+        cy.get('.navbar-burger').click()
+        cy.get('.navbar-menu').within(() => {
+            cy
+                .get('.navbar-item').contains('Log Out').should('not.be.visible')
+                .get('.navbar-item').contains('User Status').should('.not.be.visible')
+                .get('.navbar-item').contains('Log In')
+                .get('.navbar-item').contains('Register')
+        });
+        cy
+            .get('.notification.is-success').should('not.be.visible')
+            .get('.notification.is-danger').contains('That user already exists.')
+        
+        // Attempt to login
+        cy
+            .get('a').contains('Login')
+            .get('input[name="email"]').type(email)
+            .get('input[name="password"]').type('incorrectpassword')
+            .get('input[type="submit"]').click()
+            .wait(100);
+        cy.contains('All Users').should('not.be.visible')
+        cy.contains('Login')
+        cy.get('.navbar-burger').click()
+        cy.get('.navbar-menu').within(() => {
+            cy
+                .get('.navbar-item').contains('User Status').should('not.be.visible')
+                .get('.navbar-item').contains('Log Out').should('.not.be.visible')
+                .get('.navbar-item').contains('Log In')
+                .get('.navbar-item').contains('Register')
+        });
+        cy
+            .get('.notification.is-success').should('not.be.visible')
+            .get('.notification.is-danger').contains('That user already exists.')
+    });
 })
 
