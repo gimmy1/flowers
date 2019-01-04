@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import Form from '../Form'
+import Form from '../forms/Form'
 
 const testData = [
     {
@@ -35,6 +35,12 @@ testData.forEach((el) => {
         const formGroup = wrapper.find('.field')
         expect(formGroup.length).toBe(Object.keys(el.formData).length)
     });
+    // test(`${el.formType} Form should display be default`, () => {
+    //     const wrapper = shallow(component);
+    //     const input = wrapper.find('input[type=submit]')
+    //     expect(input.get(0).props.disabled).toEqual(true);
+        
+    // })
     // test(`${el.formType} Form renders a snapshot properly`, () => {
     //     const component = <Form formtype={el.formType} formData={el.formData}/>
     //     const tree = renderer.create(component).toJSON();
