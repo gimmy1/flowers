@@ -1,0 +1,188 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "0.0.1",
+        "title": "Users Service",
+        "description": "Swagger spec for documenting the users service"
+    },
+    "servers": [
+        {
+            "url": "http://localhost"
+        }
+    ],
+    "paths":{
+        "/flowers/flower": {
+            "get": {
+                "summary": "sanity check",
+                "responses": {
+                    "200": {
+                        "description": "returns summary"
+                    }
+                }
+            }
+        },
+        "/flowers": {
+            "get": {
+                "summary": "Returns all flowers",
+                "responses": {
+                    "200": {
+                        "description": "Returns all flower objects"
+                    }
+                }
+            },
+            "post": {
+                "summary": "adds a new floer",
+                "requestBody": {
+                    "description": "flower to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/user-full"
+                            }                
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns all flower objects"
+                    }
+                }
+            }
+        },
+        "/flowers/{id}": {
+            "get": {
+                "summary": "Returns flower based off id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID for user to fetch",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Flower object"
+                    }
+                }
+            }
+        },
+        "auth/register": {
+            "post": {
+                "summary": "creates a new user",
+                "requestBody": {
+                    "description": "User to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/user-full"
+                            }                
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Flower object"
+                    }
+                }
+            }
+        },
+        "auth/login": {
+            "post": {
+                "summary": "logs in a user",
+                "requestBody": {
+                    "description": "User to add",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/user"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Flower login"
+                    }
+                }
+            }
+        },
+        "auth/status": {
+            "get": {
+                "summary": "Status of flower",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Flower status"
+                    }
+                }
+            }  
+        },
+        "auth/logout": {
+            "get": {
+                "summary": "Logout a flower",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out."
+                    }
+                }
+            }  
+
+        }
+
+    },
+    "components":{
+        "securitySchemas": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        },
+        "schemas":{
+            "user": {
+                "properties":{
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "users-full": {
+                "properties":{
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
