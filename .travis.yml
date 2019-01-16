@@ -4,18 +4,19 @@ services:
   - docker
 
 env:
-  DOCKER_COMPOSE_VERSION: 1.22.0
-  COMMIT:${TRAVIS_COMMIT::8}
-  MAIN_REPO:https://github.com/gimmy1/flowers
-  USERS:flower-app-users
-  USERS_REPO:${MAIN_REPO}
-  USERS_DB:flower-app-users_db
-  USERS_DB_REPO:${MAIN_REPO}
-  CLIENT:flower-app-client
-  CLIENT_REPO:${MAIN_REPO}
-  SWAGGER:flower-app-swagger
-  SWAGGER_REPO:${MAIN_REPO}
-  SECRET_KEY=myprecious
+  DOCKER_COMPOSE_VERSION: 1.21.1
+  # new
+  COMMIT: ${TRAVIS_COMMIT::8}
+  MAIN_REPO: https://github.com/gimmy1/flowers
+  USERS: flower-app-users
+  USERS_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users
+  USERS_DB: flower-app-users_db
+  USERS_DB_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users/project/db
+  CLIENT: flower-app-client
+  CLIENT_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/client
+  SWAGGER: flower-app-swagger
+  SWAGGER_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/swagger
+  SECRET_KEY: my_precious
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
