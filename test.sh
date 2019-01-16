@@ -44,8 +44,8 @@ all() {
   inspect $? users
   docker-compose -f docker-compose-dev.yml run users flake8 project
   inspect $? users-lint
-  # docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
-  # inspect $? client
+  docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
+  inspect $? client
   docker-compose -f docker-compose-dev.yml down
   # e2e
 }
@@ -59,10 +59,10 @@ elif [[ "${type}" == "client" ]]; then
   echo "\n"
   echo "Running client-side tests!\n"
   client
-# elif [[ "${type}" == "e2e" ]]; then
-#   echo "\n"
-#   echo "Running e2e tests!\n"
-#   e2e
+elif [[ "${type}" == "e2e" ]]; then
+  echo "\n"
+  echo "Running e2e tests!\n"
+  e2e
 else
   echo "\n"
   echo "Running all tests!\n"
