@@ -44,8 +44,8 @@ all() {
   inspect $? users
   docker-compose -f docker-compose-dev.yml run users flake8 project
   inspect $? users-lint
-  docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
-  inspect $? client
+  # docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
+  # inspect $? client
   docker-compose -f docker-compose-dev.yml down
   # e2e
 }
