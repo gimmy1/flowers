@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import Message from './Message'
+import Message from '../Message'
 
 describe('When given a success message', () => {
     const removeMessage = jest.fn()

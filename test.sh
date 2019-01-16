@@ -21,12 +21,12 @@ server() {
 }
 
 # run client-side tests
-client() {
-  docker-compose -f docker-compose-dev.yml up -d --build
-  docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
-  inspect $? client
-  docker-compose -f docker-compose-dev.yml down
-}
+# client() {
+#   docker-compose -f docker-compose-dev.yml up -d --build
+#   docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
+#   inspect $? client
+#   docker-compose -f docker-compose-dev.yml down
+# }
 
 # run e2e tests
 e2e() {

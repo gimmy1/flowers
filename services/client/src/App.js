@@ -25,9 +25,8 @@ class App extends Component {
         this.logoutUser = this.logoutUser.bind(this);
         this.loginUser = this.loginUser.bind(this);
         this.createMessage = this.createMessage.bind(this);
-        this.removeMessage = this.removeMesssage.bind(this);
-
-    }
+        this.removeMessage = this.removeMessage.bind(this);
+    };
     
     // lifecycle methods
     componentWillMount() {
@@ -80,19 +79,19 @@ class App extends Component {
     
     createMessage(name='Sanity Check', type='success') {
         this.setState({
-            messageName: name,
-            messageType: type
-        })
-        setTimeout(()=> {
-            this.removeMessage();
+          messageName: name,
+          messageType: type
+        });
+        setTimeout(() => {
+          this.removeMessage();
         }, 3000);
-    }
+      };
     removeMessage() {
         this.setState({
-            messageName: null, 
+            messageName: null,
             messageType: null
-        })
-    }
+        });
+    };
     render() {
         return (
             <div>

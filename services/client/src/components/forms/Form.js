@@ -21,7 +21,6 @@ class Form extends Component {
         }
         this.handleUserFormSubmit = this.handleUserFormSubmit.bind(this);
         this.handleFormChange = this.handleFormChange.bind(this);
-        this.createMessage = this.createMessage.bind(this);
     };
 
     componentDidMount() {
