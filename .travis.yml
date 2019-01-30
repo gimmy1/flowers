@@ -7,13 +7,13 @@ env:
   DOCKER_COMPOSE_VERSION: 1.21.1
   COMMIT: ${TRAVIS_COMMIT::8}
   MAIN_REPO: https://github.com/gimmy1/flowers.git
-  USERS: flower-app-users
+  USERS: flowers-users
   USERS_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users
-  USERS_DB: flower-app-users_db
+  USERS_DB: flowers-users_db
   USERS_DB_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/users/project/db
-  CLIENT: flower-app-client
+  CLIENT: flowers-client
   CLIENT_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/client
-  SWAGGER: flower-app-swagger
+  SWAGGER: flowers-swagger
   SWAGGER_REPO: ${MAIN_REPO}#${TRAVIS_BRANCH}:services/swagger
   SECRET_KEY: my_precious
 
