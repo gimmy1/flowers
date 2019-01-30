@@ -21,14 +21,14 @@ server() {
 }
 
 # run client-side tests
-# client() {
-#   docker-compose -f docker-compose-dev.yml up -d --build
-#   docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
-#   inspect $? client
-#   docker-compose -f docker-compose-dev.yml down
-# }
+client() {
+  docker-compose -f docker-compose-dev.yml up -d --build
+  docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
+  inspect $? client
+  docker-compose -f docker-compose-dev.yml down
+}
 
-# run e2e tests
+run e2e tests
 e2e() {
   docker-compose -f docker-compose-prod.yml up -d --build
   docker-compose -f docker-compose-prod.yml run users python manage.py recreate_db
@@ -42,12 +42,12 @@ all() {
   docker-compose -f docker-compose-dev.yml up -d --build
   docker-compose -f docker-compose-dev.yml run users python manage.py test
   inspect $? users
-  docker-compose -f docker-compose-dev.yml run users flake8 project
-  inspect $? users-lint
-  docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
-  inspect $? client
-  docker-compose -f docker-compose-dev.yml down
-  e2e
+  # docker-compose -f docker-compose-dev.yml run users flake8 project
+  # inspect $? users-lint
+  # docker-compose -f docker-compose-dev.yml run client npm test -- --coverage
+  # inspect $? client
+  # docker-compose -f docker-compose-dev.yml down
+  # e2e
 }
 
 # run appropriate tests
